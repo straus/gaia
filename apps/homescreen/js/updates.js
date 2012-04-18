@@ -1,4 +1,4 @@
-function requestUpdates(aUpdate, nowcallback, delaycallback) {
+function requestUpdates(detail, nowcallback, delaycallback) {
   // These are the UI elements we work with
   var screen = document.getElementById('updatesscreen');
   var messagediv = document.getElementById('updatesmessage');
@@ -14,7 +14,17 @@ function requestUpdates(aUpdate, nowcallback, delaycallback) {
   // Put the message in the dialog.
   // Note plain text since this may include text from
   // untrusted app manifests, for example.
-  messagediv.textContent = "Update "+aUpdate.name+"?";
+  if (detail.type == "updates-request") {
+    messagediv.textContent = "Update "+detail.update.name+"?";
+  } else if (detail.type == "updates-check") {
+    messagediv.textContent = "Check for updates?";
+  } else if (detail.type == "updates-available") {
+    messagediv.textContent = "Download "+detail.update.name+"?";
+  } else {
+    dump("#####updates.js got request type "+detail.update.name+"\n");
+    // Didn't recognize the type of message
+    return;
+  }
 
   // Set event listeners for the yes and no buttons
   nowbutton.addEventListener('click', clickHandler);

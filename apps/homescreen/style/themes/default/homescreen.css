@@ -492,7 +492,7 @@ div.windowSprite {
 
 #permissionscreen.visible {
   pointer-events: auto;
-  display: none;
+  display: block;
 }
 
 #permissiondialog {
@@ -535,7 +535,7 @@ div.windowSprite {
 
 #updatesscreen.visible {
   pointer-events: auto;
-  display: none;
+  display: block;
 }
 
 #updatesdialog {
@@ -578,7 +578,7 @@ div.windowSprite {
 
 #updatesscreen.visible {
   pointer-events: auto;
-  display: none;
+  display: block;
 }
 
 #updatesdialog {

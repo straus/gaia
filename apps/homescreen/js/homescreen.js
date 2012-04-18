@@ -1088,6 +1088,17 @@ function AppScreen() {
                         function() { sendResponse(e.detail.id, true); },
                         function() { sendResponse(e.detail.id, false); });
     } else if (e.detail.type == 'updates-request') {
+      dump("#####homescccreen.js: handleEvent updates-request\n");
+      requestUpdates(e.detail,
+                     function () { sendUpdate(e.detail.update, true); },
+                     function () { sendUpdate(e.detail.update, false); });
+    } else if (e.detail.type == 'updates-check') {
+      dump("#####homescccreen.js: handleEvent updates-check\n");
+      requestUpdates(e.detail,
+                     function () { sendUpdate(e.detail.update, true); },
+                     function () { sendUpdate(e.detail.update, false); });
+    } else if (e.detail.type == 'updates-available') {
+      dump("#####homescccreen.js: handleEvent updates-available\n");
       requestUpdates(e.detail,
                      function () { sendUpdate(e.detail.update, true); },
                      function () { sendUpdate(e.detail.update, false); });
@@ -1121,9 +1132,9 @@ function AppScreen() {
         });
         window.dispatchEvent(event);
       } else {
-        window.setTimeout(requestUpdates(e.detail,
+        window.setTimeout(function() {requestUpdates(e.detail,
                           function() { sendUpdate(e.detail, true); },
-                          function() { sendUpdate(e.detail, false); }),
+                          function() { sendUpdate(e.detail, false); });}.bind(this),
                           10*60*1000);
       }
     }
