@@ -19,7 +19,7 @@ function requestUpdates(detail, nowcallback, delaycallback) {
   } else if (detail.type == "updates-check") {
     messagediv.textContent = "Check for updates?";
   } else if (detail.type == "updates-available") {
-    messagediv.textContent = "Download "+detail.update.name+"?";
+    messagediv.textContent = "Downloaded update "+detail.update.name+"?";
   } else {
     dump("#####updates.js got request type "+detail.update.name+"\n");
     // Didn't recognize the type of message

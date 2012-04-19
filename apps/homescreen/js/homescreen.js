@@ -1095,13 +1095,13 @@ function AppScreen() {
     } else if (e.detail.type == 'updates-check') {
       dump("#####homescccreen.js: handleEvent updates-check\n");
       requestUpdates(e.detail,
-                     function () { sendUpdate(e.detail.update, true); },
-                     function () { sendUpdate(e.detail.update, false); });
+                     function () { },
+                     function () { });
     } else if (e.detail.type == 'updates-available') {
       dump("#####homescccreen.js: handleEvent updates-available\n");
       requestUpdates(e.detail,
-                     function () { sendUpdate(e.detail.update, true); },
-                     function () { sendUpdate(e.detail.update, false); });
+                     function () { downloadUpdate(e.detail.update, true); },
+                     function () { downloadUpdate(e.detail.update, false); });
     } else if (e.detail.type == 'permission-prompt') {
       permissionPrompt(e.detail,
                      function () { permissionResponse(e.detail.request, true); },
@@ -1129,6 +1129,38 @@ function AppScreen() {
         event.initCustomEvent('mozContentEvent', true, false, {
           aUpdate: detail,
           type: 'updates-now',
+        });
+        window.dispatchEvent(event);
+      } else {
+        window.setTimeout(function() {requestUpdates(e.detail,
+                          function() { sendUpdate(e.detail, true); },
+                          function() { sendUpdate(e.detail, false); });}.bind(this),
+                          10*60*1000);
+      }
+    }
+
+    function downloadUpdate(detail, now) {
+      if (now) {
+        var event = document.createEvent('CustomEvent');
+        event.initCustomEvent('mozContentEvent', true, false, {
+          aUpdate: detail,
+          type: 'download-update',
+        });
+        window.dispatchEvent(event);
+      } else {
+        window.setTimeout(function() {requestUpdates(e.detail,
+                          function() { sendUpdate(e.detail, true); },
+                          function() { sendUpdate(e.detail, false); });}.bind(this),
+                          10*60*1000);
+      }
+    }
+
+    function checkForUpdate(detail, now) {
+      if (now) {
+        var event = document.createEvent('CustomEvent');
+        event.initCustomEvent('mozContentEvent', true, false, {
+          aUpdate: detail,
+          type: 'check-for-update',
         });
         window.dispatchEvent(event);
       } else {
