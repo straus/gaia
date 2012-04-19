@@ -21,7 +21,6 @@ function requestUpdates(detail, nowcallback, delaycallback) {
   } else if (detail.type == "updates-available") {
     messagediv.textContent = "Downloaded update "+detail.update.name+"?";
   } else {
-    dump("#####updates.js got request type "+detail.update.name+"\n");
     // Didn't recognize the type of message
     return;
   }

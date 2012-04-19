@@ -1088,17 +1088,14 @@ function AppScreen() {
                         function() { sendResponse(e.detail.id, true); },
                         function() { sendResponse(e.detail.id, false); });
     } else if (e.detail.type == 'updates-request') {
-      dump("#####homescccreen.js: handleEvent updates-request\n");
       requestUpdates(e.detail,
                      function () { sendUpdate(e.detail.update, true); },
                      function () { sendUpdate(e.detail.update, false); });
     } else if (e.detail.type == 'updates-check') {
-      dump("#####homescccreen.js: handleEvent updates-check\n");
       requestUpdates(e.detail,
                      function () { },
                      function () { });
     } else if (e.detail.type == 'updates-available') {
-      dump("#####homescccreen.js: handleEvent updates-available\n");
       requestUpdates(e.detail,
                      function () { downloadUpdate(e.detail.update, true); },
                      function () { downloadUpdate(e.detail.update, false); });
